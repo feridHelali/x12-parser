@@ -56,7 +56,7 @@ Below is an example of grouping everything inside the ISA, however **this is not
 
 ## Full Example - WIP
 ```javascript
-const { X12parser, X12grouper, Schema } = require('./index');
+const { X12parser, X12grouper, X12schema } = require('./index');
 const { createReadStream } = require('fs');
 
 const schema = {
@@ -95,7 +95,7 @@ const schema = {
 }
 
 const myParser = new X12parser();
-const mySchema = new Schema('005010X221A1', schema);
+const mySchema = new X12schema('005010X221A1', schema);
 const myGrouper = new X12grouper(mySchema);
 
 const testFile = createReadStream('./test/testFiles/835/profee.edi')

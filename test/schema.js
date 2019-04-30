@@ -1,4 +1,4 @@
-const { Schema } = require('../index');
+const { X12schema } = require('../index');
 const assert = require('assert');
 
 const schema = {
@@ -13,11 +13,11 @@ const schema = {
     ]
 }
 
-describe('Schema', function () {
+describe('X12schema', function () {
     describe('#constructor()', function () {
-        const testSchema = new Schema('005010X221A1', schema, true)
-        it('Should return an instance of Schema', function () {
-            assert(testSchema instanceof Schema);
+        const testSchema = new X12schema('005010X221A1', schema, true)
+        it('Should return an instance of X12schema', function () {
+            assert(testSchema instanceof X12schema);
         });
         it('Should be able to get version', function () {
             assert.strictEqual(testSchema.version, '005010X221A1');
@@ -31,15 +31,15 @@ describe('Schema', function () {
     });
     describe('#verifySchema()', function () {
         it('Should return the schema if valid', function () {
-            assert.deepStrictEqual(Schema.verifySchema(schema), schema)
+            assert.deepStrictEqual(X12schema.verifySchema(schema), schema)
         });
         it('Should require a start of the group', function () {
-            assert.throws(() => Schema.verifySchema('garbage', Error));
+            assert.throws(() => X12schema.verifySchema('garbage', Error));
         });
         it('Should verify all nested groups have a start', function () {
             const testSchema = {...schema};
             delete testSchema.groups[0].start;
-            assert.throws(() => Schema.verifySchema(testSchema, Error));
+            assert.throws(() => X12schema.verifySchema(testSchema, Error));
         });
     });
 });
